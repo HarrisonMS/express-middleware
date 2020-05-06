@@ -1,8 +1,9 @@
 const express = require("express");
 const Users = require("./usersModel");
 const router = express.Router();
+const { validateUser } = require("../middleware/userPostValidate");
 
-router.post("/", (req, res) => {
+router.post("/", validateUser, (req, res) => {
   const userData = req.body;
   Users.insert(userData)
     .then(({ id }) => {
@@ -12,11 +13,12 @@ router.post("/", (req, res) => {
           res.status(201).json(user);
         })
         .catch((error) => {
-          res.status.json(error);
+          res.status(500).json(error);
         });
     })
     .catch((error) => {
-      res.status.json(error);
+      console.log(error.message);
+      res.status(500).json({ errorMessage: error.message });
     });
 });
 
@@ -46,16 +48,16 @@ router.put("/:id", (req, res) => {
 
 //custom middleware
 
-function validateUserId(req, res, next) {
-  // do your magic!
-}
+// function validateUserId(req, res, next) {
+//   // do your magic!
+// }
 
-function validateUser(req, res, next) {
-  // do your magic!
-}
+// function validateUser(req, res, next) {
+//   // do your magic!
+// }
 
-function validatePost(req, res, next) {
-  // do your magic!
-}
+// function validatePost(req, res, next) {
+//   // do your magic!
+// }
 
 module.exports = router;
