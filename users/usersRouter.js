@@ -3,7 +3,21 @@ const Users = require("./usersModel");
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  // do your magic!
+  const userData = req.body;
+  Users.insert(userData)
+    .then(({ id }) => {
+      console.log(id);
+      Users.getById(id)
+        .then((user) => {
+          res.status(201).json(user);
+        })
+        .catch((error) => {
+          res.status.json(error);
+        });
+    })
+    .catch((error) => {
+      res.status.json(error);
+    });
 });
 
 router.post("/:id/posts", (req, res) => {
