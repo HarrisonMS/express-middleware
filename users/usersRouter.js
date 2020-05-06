@@ -27,7 +27,14 @@ router.post("/:id/posts", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  // do your magic!
+  Users.get()
+    .then((users) => {
+      res.status(200).json(users);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      res.status(500).json({ errorMessage: error.message });
+    });
 });
 
 router.get("/:id", (req, res) => {
@@ -40,8 +47,9 @@ router.get("/:id/posts", (req, res) => {
     .then((posts) => {
       res.status(200).json(posts);
     })
-    .catch(() => {
-      easyErr(500, "cant get this users post from the data base", res);
+    .catch((error) => {
+      console.log(error.message);
+      res.status(500).json({ errorMessage: error.message });
     });
 });
 
