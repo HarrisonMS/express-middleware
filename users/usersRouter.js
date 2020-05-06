@@ -2,6 +2,8 @@ const express = require("express");
 const Users = require("./usersModel");
 const router = express.Router();
 const { validateUser } = require("../middleware/userPostValidate");
+const { validateUserId } = require("../middleware/validateUserId");
+const { checkRole } = require("../middleware/checkRole");
 
 router.post("/", validateUser, (req, res) => {
   const userData = req.body;
@@ -41,7 +43,7 @@ router.get("/:id", (req, res) => {
   // do your magic!
 });
 
-router.get("/:id/posts", (req, res) => {
+router.get("/:id/posts", validateUserId, checkRole("user"), (req, res) => {
   const { id } = req.params;
   Users.getUserPosts(id)
     .then((posts) => {
