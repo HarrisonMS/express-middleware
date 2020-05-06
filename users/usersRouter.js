@@ -35,7 +35,14 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/:id/posts", (req, res) => {
-  // do your magic!
+  const { id } = req.params;
+  Users.getUserPosts(id)
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch(() => {
+      easyErr(500, "cant get this users post from the data base", res);
+    });
 });
 
 router.delete("/:id", (req, res) => {

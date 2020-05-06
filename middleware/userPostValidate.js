@@ -1,5 +1,4 @@
-// const Users = require('../users/userDb')
-const users = require("../users/usersModel");
+// const users = require("../users/usersModel");
 
 function validateUser(req, res, next) {
   if (!req.body) {
