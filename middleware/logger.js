@@ -1,5 +1,5 @@
 const logger = (req, res, next) => {
-  console.log(`${req.method} to ${req.originalUrl} at ${new Date()}`);
+  console.log(`${req.method} to ${req.originalUrl} at ${new Date()} `);
   next();
 };
 
