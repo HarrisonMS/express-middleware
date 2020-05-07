@@ -27,7 +27,7 @@ router.post("/", validateUser, (req, res) => {
 });
 
 router.post("/:id/posts", validatePost, validateUserId, (req, res) => {
-  const postData = req.body;
+  const postData = { user_id: req.params.id, ...req.body };
   Posts.insert(postData)
     .then((post) => {
       console.log(post);
