@@ -4,7 +4,6 @@ function validatePost(req, res, next) {
   } else if (!req.body.text) {
     res.status(400).json({ message: "text required buddy" });
   } else {
-    req.body.user_id = req.user.id;
     next();
   }
 }
