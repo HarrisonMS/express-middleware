@@ -2,13 +2,13 @@ const express = require("express");
 const Posts = require("./postModel");
 const router = express.Router();
 const { validatePostId } = require("../middleware/validatePostId");
-
+const { restricted } = require("../middleware/restricted");
 router.get("/", (req, res) => {
   Posts.get().then((posts) => {
     res.status(201).json(posts);
   });
 });
-router.get("/:id", (req, res) => {
+router.get("/:id", restricted, (req, res) => {
   const { id } = req.params;
   Posts.getById(id)
     .then((post) => {
